@@ -5,6 +5,7 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -18,12 +19,11 @@ public class Topic_01_Check_Environment {
 	@BeforeClass
 	public void beforeClass() {
 		// Firefox
-		// System.setProperty("webdriver.gecko.driver", projectPath +
-		// "\\browserDrivers\\geckodriver.exe");
-		// driver = new FirefoxDriver();
+		 System.setProperty("webdriver.gecko.driver", projectPath + "\\browserDrivers\\geckodriver.exe");
+		 driver = new FirefoxDriver();
 		// Chrome
-		System.setProperty("webdriver.chrome.driver", projectPath + "\\browserDrivers\\chromedriver.exe");
-		driver = new ChromeDriver();
+		//System.setProperty("webdriver.chrome.driver", projectPath + "\\browserDrivers\\chromedriver.exe");
+		//driver = new ChromeDriver();
 
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
@@ -33,7 +33,7 @@ public class Topic_01_Check_Environment {
 
 	@Test
 	public void TC_01_ValidateCurrentUrl() {
-//Login page url matchingsssss
+//Login page url matching
 	
 
 		String loginPageUrl = driver.getCurrentUrl();
