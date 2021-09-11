@@ -9,11 +9,11 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
+import org.testng.annotations.Test;  
 
  
 public class Topic_01_Check_Environment {
-	WebDriver driver; // là 1 thư viện
+	WebDriver driver; // là 1 thư viện h
 	String projectPath = System.getProperty("user.dir");
 
 	@BeforeClass
@@ -28,6 +28,7 @@ public class Topic_01_Check_Environment {
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
 		driver.get("http://demo.guru99.com/v4/");
+		
 
 	}
 
