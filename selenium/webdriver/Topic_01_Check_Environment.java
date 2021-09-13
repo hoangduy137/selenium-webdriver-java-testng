@@ -13,7 +13,7 @@ import org.testng.annotations.Test;
 
  
 public class Topic_01_Check_Environment {
-	WebDriver driver; // là 1 thư viện h
+	WebDriver driver; // là 1 thư viện
 	String projectPath = System.getProperty("user.dir");
 
 	@BeforeClass
