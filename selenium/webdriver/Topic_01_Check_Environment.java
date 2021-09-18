@@ -9,9 +9,8 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;  
+import org.testng.annotations.Test;
 
- 
 public class Topic_01_Check_Environment {
 	WebDriver driver; // là 1 thư viện
 	String projectPath = System.getProperty("user.dir");
@@ -19,23 +18,21 @@ public class Topic_01_Check_Environment {
 	@BeforeClass
 	public void beforeClass() {
 		// Firefox
-		 System.setProperty("webdriver.gecko.driver", projectPath + "\\browserDrivers\\geckodriver.exe");
-		 driver = new FirefoxDriver();
+		System.setProperty("webdriver.gecko.driver", projectPath + "\\browserDrivers\\geckodriver.exe");
+		driver = new FirefoxDriver();
 		// Chrome
-		//System.setProperty("webdriver.chrome.driver", projectPath + "\\browserDrivers\\chromedriver.exe");
-		//driver = new ChromeDriver();
+		// System.setProperty("webdriver.chrome.driver", projectPath + "\\browserDrivers\\chromedriver.exe");
+		// driver = new ChromeDriver();
 
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
 		driver.get("http://demo.guru99.com/v4/");
-		
 
 	}
 
 	@Test
 	public void TC_01_ValidateCurrentUrl() {
 //Login page url matching
-	
 
 		String loginPageUrl = driver.getCurrentUrl();
 		Assert.assertEquals(loginPageUrl, "http://demo.guru99.com/v4/");
@@ -50,9 +47,10 @@ public class Topic_01_Check_Environment {
 
 	@Test
 	public void TC_03_LoginFormDisplayed() {
-//Login form displayeds
+//Login form display 
 
 		Assert.assertTrue(driver.findElement(By.xpath("//form[@name='frmLogin']")).isDisplayed());
+	
 	}
 
 	@AfterClass
