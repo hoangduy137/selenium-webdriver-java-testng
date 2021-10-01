@@ -4,11 +4,14 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+
+import java.util.List;
 import java.util.Random;
 
 public class Topic_0405_Xpath_CSS {
@@ -22,6 +25,9 @@ public class Topic_0405_Xpath_CSS {
 	String Pws = "12345678";
 	String Repws = "12345678";
 	String Phone = "0987654321";
+	String Emailtmp = generateRandomString(6) + "@gmail.com";
+	String MiddleNametmp = generateRandomString(5);
+	String LastNametmp = generateRandomString(8);
 
 	@BeforeClass
 	public void beforeClass() {
@@ -30,11 +36,11 @@ public class Topic_0405_Xpath_CSS {
 
 		driver.manage().timeouts().implicitlyWait(50, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
-		// driver.get("https://alada.vn/tai-khoan/dang-ky.html");
+		driver.get("https://alada.vn/tai-khoan/dang-ky.html");
 
 	}
 
-	// @Test
+	@Test
 	public void TC_01_RegisterWithEmptyData() {
 		String Mes_Firstname_Error = "Vui lòng nhập họ tên";
 		String Mes_Email_Error = "Vui lòng nhập email";
@@ -42,7 +48,9 @@ public class Topic_0405_Xpath_CSS {
 		String Mes_Pws_Error = "Vui lòng nhập mật khẩu";
 		String Mes_Repws_Error = "Vui lòng nhập lại mật khẩu";
 		String Mes_Phone_Error = "Vui lòng nhập số điện thoại.";
+
 		driver.findElement(By.xpath("//button[@class='btn_pink_sm fs16']")).click();
+		// Thread.sleep(2000);
 		Assert.assertEquals(
 				driver.findElement(By.xpath("//div[@class='field']//label[@id='txtFirstname-error']")).getText(),
 				Mes_Firstname_Error);
@@ -55,7 +63,7 @@ public class Topic_0405_Xpath_CSS {
 		Assert.assertEquals(driver.findElement(By.xpath("//label[@id='txtPhone-error']")).getText(), Mes_Phone_Error);
 	}
 
-	// @Test
+	@Test
 	public void TC_02_RegisterWithInvalidEmail() {
 		driver.navigate().refresh();
 
@@ -75,7 +83,7 @@ public class Topic_0405_Xpath_CSS {
 
 	}
 
-	// @Test
+	@Test
 	public void TC_03_RegisterWithIncorrectConfirmEmail() {
 		driver.navigate().refresh();
 		String Mes_Reemail_Invalid = "Email nhập lại không đúng";
@@ -86,12 +94,14 @@ public class Topic_0405_Xpath_CSS {
 		driver.findElement(By.xpath("//input[@id='txtPassword']")).sendKeys(Pws);
 		driver.findElement(By.xpath("//input[@id='txtCPassword']")).sendKeys(Repws);
 		driver.findElement(By.xpath("//input[@id='txtPhone']")).sendKeys(Email);
+		SleepInSeconds(1);
 		driver.findElement(By.xpath("//button[@class='btn_pink_sm fs16']")).click();
+		SleepInSeconds(1);
 		Assert.assertEquals(driver.findElement(By.xpath("//label[@id='txtCEmail-error']")).getText(),
 				Mes_Reemail_Invalid);
 	}
 
-	// @Test
+	@Test
 	public void TC_04_RegisterWithPws6Character() {
 		driver.navigate().refresh();
 		String Mes_Pws_Invalid = "Mật khẩu phải có ít nhất 6 ký tự";
@@ -111,7 +121,7 @@ public class Topic_0405_Xpath_CSS {
 				Mes_Repws_Invalid);
 	}
 
-	// @Test
+	@Test
 	public void TC_05_RegisterWithIncorrectConfirmPws() {
 		driver.navigate().refresh();
 		String Mes_Repws_Invalid = "Mật khẩu bạn nhập không khớp";
@@ -122,6 +132,7 @@ public class Topic_0405_Xpath_CSS {
 		driver.findElement(By.xpath("//input[@id='txtPassword']")).sendKeys(Pws);
 		driver.findElement(By.xpath("//input[@id='txtCPassword']")).sendKeys(Repws.substring(0, 7));
 		driver.findElement(By.xpath("//input[@id='txtPhone']")).sendKeys(Phone);
+		SleepInSeconds(2);
 		driver.findElement(By.xpath("//button[@class='btn_pink_sm fs16']")).click();
 
 		Assert.assertEquals(driver.findElement(By.xpath("//label[@id='txtCPassword-error']")).getText(),
@@ -129,7 +140,7 @@ public class Topic_0405_Xpath_CSS {
 
 	}
 
-	// @Test
+	@Test
 	public void TC_06_RegisterWithInvalidPhone() {
 		driver.navigate().refresh();
 		String Mes_Phone_Error = "Vui lòng nhập con số";
@@ -140,6 +151,7 @@ public class Topic_0405_Xpath_CSS {
 		driver.findElement(By.xpath("//input[@id='txtPassword']")).sendKeys(Pws);
 		driver.findElement(By.xpath("//input[@id='txtCPassword']")).sendKeys(Repws);
 		driver.findElement(By.xpath("//input[@id='txtPhone']")).sendKeys(".e");
+		SleepInSeconds(1);
 		driver.findElement(By.xpath("//button[@class='btn_pink_sm fs16']")).click();
 
 		Assert.assertEquals(driver.findElement(By.xpath("//label[@id='txtPhone-error']")).getText(), Mes_Phone_Error);
@@ -158,7 +170,7 @@ public class Topic_0405_Xpath_CSS {
 
 	}
 
-	// @Test
+	@Test
 	public void TC_08_LoginInvalidWithEmail() {
 		driver.navigate().refresh();
 
@@ -171,7 +183,7 @@ public class Topic_0405_Xpath_CSS {
 
 	}
 
-	// @Test
+	@Test
 	public void TC_09_LoginWithPws6Character() {
 		driver.navigate().refresh();
 
@@ -184,7 +196,7 @@ public class Topic_0405_Xpath_CSS {
 
 	}
 
-	// @Test
+	@Test
 	public void TC_10_LoginIncorrectPwsEmail() {
 		driver.navigate().refresh();
 		driver.findElement(By.xpath("//input[@id='email']")).sendKeys(Email);
@@ -198,10 +210,9 @@ public class Topic_0405_Xpath_CSS {
 	@Test
 	public void TC_11_CreateNewAccount() {
 		driver.navigate().refresh();
-		String Emailtmp= generateRandomString(6)+"@gmail.com";
-		String MiddleNametmp= generateRandomString(5);
-		String LastNametmp= generateRandomString(8);
-		String MesSuccess= "Thank you for registering with Main Website Store.";
+
+		String MesSuccess = "Thank you for registering with Main Website Store.";
+
 		driver.findElement(By.xpath("//a[@title='Create an Account']")).click();
 		driver.findElement(By.xpath("//input[@id='firstname']")).sendKeys(Firstname);
 		driver.findElement(By.xpath("//input[@id='middlename']")).sendKeys(MiddleNametmp);
@@ -210,14 +221,30 @@ public class Topic_0405_Xpath_CSS {
 		driver.findElement(By.xpath("//input[@id='password']")).sendKeys(Pws);
 		driver.findElement(By.xpath("//input[@id='confirmation']")).sendKeys(Repws);
 		driver.findElement(By.xpath("//button[@title='Register']")).click();
-		Assert.assertEquals(driver.findElement(By.xpath("//ul[@class='messages']/li[@class='success-msg']")).getText(), MesSuccess);
-		Assert.assertEquals(driver.findElement(By.xpath("//div[@class='welcome-msg']/p[@class='hello']")).getText(), "Hello, "+ Firstname +" "+ MiddleNametmp +" "+ LastNametmp +"!");
+		Assert.assertEquals(driver.findElement(By.xpath("//li[@class='success-msg']//span")).getText(), MesSuccess);
+		Assert.assertEquals(driver.findElement(By.xpath("//div[@class='dashboard']//h1")).getText(), "MY DASHBOARD");
+		Assert.assertEquals(driver.findElement(By.xpath("//div[@class='welcome-msg']//strong")).getText(),
+				"Hello, " + Firstname + " " + MiddleNametmp + " " + LastNametmp + "!");
+
+		List<WebElement> BoxContents = driver.findElements(By.xpath("//div[@class='col-1']//p"));
+		// System.out.println(BoxContents.size());
+		Assert.assertEquals(BoxContents.get(0).getText().split("\\n")[0],
+				Firstname + " " + MiddleNametmp + " " + LastNametmp);
+		Assert.assertEquals(BoxContents.get(0).getText().split("\\n")[1], Emailtmp);
+
+		// System.out.println( BoxContents.get(0).getText().split("\\n")[0]); Cat chuoi
+		// string voi ki tu xuong dong
+
+//		for ( int i= 0; i<BoxContents.size();i++) {
+//			System.out.println(BoxContents.get(0).getText());
+//			
+//		}
+//		
+
 		driver.findElement(By.xpath("//header/div/div/div/a/span[@class='label']")).click();
 		driver.findElement(By.xpath("//div[@id='header-account']//li[@class=' last']/a")).click();
-		
-		
-		
-		
+		// System.out.println(driver.findElement(By.xpath("//li[@class='success-msg']//span")).getText());
+		// System.out.println(driver.findElement(By.xpath("//div[@class='welcome-msg']//strong")).getText());
 
 	}
 
@@ -242,6 +269,34 @@ public class Topic_0405_Xpath_CSS {
 			randStr.append(ch);
 		}
 		return randStr.toString();
+	}
+
+	@Test
+	public void TC_12_LoginSuccess() {
+		driver.get("http://live.demoguru99.com/");
+		driver.findElement(By.xpath("//div[@class='footer-container']//a[@title='My Account']")).click();
+		driver.findElement(By.xpath("//input[@id='email']")).sendKeys(Emailtmp);
+		driver.findElement(By.xpath("//input[@id='pass']")).sendKeys(Pws);
+		driver.findElement(By.xpath("//button[@id='send2']")).click();
+		Assert.assertEquals(driver.findElement(By.xpath("//div[@class='dashboard']//h1")).getText(), "MY DASHBOARD");
+		Assert.assertEquals(driver.findElement(By.xpath("//div[@class='welcome-msg']/p[@class='hello']")).getText(),
+				"Hello, " + Firstname + " " + MiddleNametmp + " " + LastNametmp + "!");
+
+		List<WebElement> BoxContents = driver.findElements(By.xpath("//div[@class='col-1']//p"));
+		Assert.assertEquals(BoxContents.get(0).getText().split("\\n")[0],
+				Firstname + " " + MiddleNametmp + " " + LastNametmp);
+		Assert.assertEquals(BoxContents.get(0).getText().split("\\n")[1], Emailtmp);
+
+	}
+
+	public void SleepInSeconds(long s) {
+		try {
+			Thread.sleep(s * 1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 	@AfterClass
