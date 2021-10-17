@@ -305,3 +305,15 @@ public class Topic_0405_Xpath_CSS {
 	}
 
 }
+
+
+////Cách 1 cho test case 11
+//
+//String contactInformation = driver.findElement(By.xpath("//h3[text()='Contact Information']/parent::div/following-sibling::div[@class='box-content']/p")).getText();
+//Assert.assertTrue(contactInformation.contains(fullname));
+//
+////Cách 2 
+//
+// driver.findElement(By.xpath("//h3[text()='Contact Information']/parent::div/following-sibling::div[@class='box-content']/p[contains(.,'ABC')]")).isDisplayed();
+//
+//Assert.assertTrue(driver.findElement(By.xpath("//h3[text()='Contact Information']/parent::div/following-sibling::div[@class='box-content']/p[contains(.,'"+fullname+"')]")).isDisplayed();)
