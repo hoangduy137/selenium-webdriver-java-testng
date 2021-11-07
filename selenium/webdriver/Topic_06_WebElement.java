@@ -132,8 +132,9 @@ public class Topic_06_WebElement {
 		WebElement pws = driver.findElement(By.id("new_password"));
 		By signUp = By.id("create-account");
 
-		WebElement newletterCheckbox = driver.findElement(By.xpath("//input[@name='marketing_newsletter']"));
+		
 		By newletterCheckboxSelected = By.xpath("//input[@name='marketing_newsletter']");
+		WebElement newletterCheckbox = driver.findElement(By.xpath("//input[@name='marketing_newsletter']"));
 		JavascriptExecutor executor = (JavascriptExecutor) driver;
 		executor.executeScript("arguments[0].click();", newletterCheckbox);
 
