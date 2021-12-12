@@ -108,7 +108,7 @@ public class Topic_08_Dropdown {
 
 	}
 
-	@Test
+	// @Test
 	public void TC_03_VueJS() {
 
 		driver.get("https://mikerodham.github.io/vue-dropdowns/");
@@ -122,6 +122,31 @@ public class Topic_08_Dropdown {
 
 		selectItemInDropdown("//li[@class='dropdown-toggle']", "//ul[@class='dropdown-menu']//a", "Third Option");
 		Assert.assertEquals(driver.findElement(By.xpath("//li[@class='dropdown-toggle']")).getText(), "Third Option");
+		topic_0405_Xpath_CSS.SleepInSeconds(1);
+
+	}
+
+	// @Test
+	public void TC_04_Angular() {
+		driver.get(
+				"https://ej2.syncfusion.com/angular/demos/?_ga=2.262049992.437420821.1575083417-524628264.1575083417#/material/drop-down-list/data-binding");
+	}
+
+	@Test
+	public void TC_05_EditTable() {
+		driver.get("https://react.semantic-ui.com/maximize/dropdown-example-search-selection/");
+		editTable("//input[@class='search']", "//div[contains(@class,'item')]", "Australia");
+		Assert.assertEquals(driver.findElement(By.xpath("//div[contains(@class,'divider text')]")).getText(),
+				"Australia");
+		topic_0405_Xpath_CSS.SleepInSeconds(1);
+
+		editTable("//input[@class='search']", "//div[contains(@class,'item')]", "Aland Islands");
+		Assert.assertEquals(driver.findElement(By.xpath("//div[contains(@class,'divider text')]")).getText(),
+				"Aland Islands");
+		topic_0405_Xpath_CSS.SleepInSeconds(1);
+
+		editTable("//input[@class='search']", "//div[contains(@class,'item')]", "Benin");
+		Assert.assertEquals(driver.findElement(By.xpath("//div[contains(@class,'divider text')]")).getText(), "Benin");
 		topic_0405_Xpath_CSS.SleepInSeconds(1);
 
 	}
@@ -168,6 +193,37 @@ public class Topic_08_Dropdown {
 				break;
 			}
 		}
+	}
+
+	public void editTable(String parentXpath, String childXpath, String expectedItem) {
+		driver.findElement(By.xpath(parentXpath)).clear();
+		topic_0405_Xpath_CSS.SleepInSeconds(1);
+
+		driver.findElement(By.xpath(parentXpath)).sendKeys(expectedItem);
+		topic_0405_Xpath_CSS.SleepInSeconds(1);
+
+		explicitWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(childXpath)));
+
+		List<WebElement> childItems = driver.findElements(By.xpath(childXpath));
+		for (WebElement actualItem : childItems) {
+
+			if (actualItem.isDisplayed()) {
+				Actions ac = new Actions(driver);
+				ac.moveToElement(actualItem).perform();
+				ac.click(actualItem).perform();
+
+			} else {
+				JavascriptExecutor js = (JavascriptExecutor) driver;
+				js.executeScript("arguments[0].scrollIntoView(true);", actualItem);
+				Actions ac = new Actions(driver);
+				ac.moveToElement(actualItem).perform();
+				ac.click(actualItem).perform();
+
+			}
+			break;
+
+		}
+
 	}
 
 	@AfterClass
